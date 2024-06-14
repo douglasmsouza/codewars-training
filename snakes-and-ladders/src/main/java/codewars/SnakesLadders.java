@@ -32,7 +32,7 @@ public class SnakesLadders {
         SQUARES_MAPPING.put(99, 80);
     }
 
-    abstract class Player {
+    abstract static class Player {
         int num;
         int currentSquare;
 
@@ -42,19 +42,19 @@ public class SnakesLadders {
         }
     }
 
-    class Player1 extends Player {
+    static class Player1 extends Player {
         Player1() {
             super(1, 0);
         }
     }
 
-    class Player2 extends Player {
+    static class Player2 extends Player {
         Player2() {
             super(2, 0);
         }
     }
 
-    class PlayerFactory {
+    static class PlayerFactory {
         Player createPlayer(int num) {
             if (num == 1) {
                 return new Player1();

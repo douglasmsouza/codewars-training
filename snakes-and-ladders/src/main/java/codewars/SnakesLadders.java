@@ -2,7 +2,6 @@ package codewars;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 public class SnakesLadders {

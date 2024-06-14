@@ -2,6 +2,7 @@ package codewars;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public class SnakesLadders {
@@ -68,6 +69,8 @@ public class SnakesLadders {
         }
     }
 
+    static final int LAST_SQUARE = 100;
+
     PlayerFactory playerFactory = new PlayerFactory();
     Player player1;
     Player player2;
@@ -80,9 +83,24 @@ public class SnakesLadders {
     }
 
     public String play(int die1, int die2) {
-        var nextSquare = this.currentPlayer.currentSquare + die1 + die2;
         var player = this.currentPlayer;
-        player.currentSquare = Optional.ofNullable(SQUARES_MAPPING.get(nextSquare)).orElse(nextSquare);
+        if (player == null) {
+            return "Game over!";
+        }
+
+        var nextSquare = player.currentSquare + die1 + die2;
+        nextSquare = Optional.ofNullable(SQUARES_MAPPING.get(nextSquare)).orElse(nextSquare);
+        if (nextSquare > LAST_SQUARE) {
+            nextSquare = LAST_SQUARE - (nextSquare - LAST_SQUARE);
+            nextSquare = Optional.ofNullable(SQUARES_MAPPING.get(nextSquare)).orElse(nextSquare);
+        }
+
+        if (nextSquare == LAST_SQUARE) {
+            this.currentPlayer = null;
+            return "Player %d Wins!".formatted(player.num);
+        }
+
+        player.currentSquare = nextSquare;
 
         if (die1 != die2) {
             if (this.currentPlayer == this.player1) {
